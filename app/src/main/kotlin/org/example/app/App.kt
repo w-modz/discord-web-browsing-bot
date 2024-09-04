@@ -3,12 +3,27 @@
  */
 package org.example.app
 
-import org.example.utilities.StringUtils
-
 import org.apache.commons.text.WordUtils
+import org.example.utilities.StringUtils
+import org.javacord.api.DiscordApiBuilder
+import org.javacord.api.entity.intent.Intent
+import org.javacord.api.event.message.MessageCreateEvent
 
 fun main() {
     val tokens = StringUtils.split(MessageUtils.getMessage())
     val result = StringUtils.join(tokens)
     println(WordUtils.capitalize(result))
+
+    val token = ""
+    val api = DiscordApiBuilder()
+        .setToken(token)
+        .addIntents(Intent.MESSAGE_CONTENT)
+        .login()
+        .join()
+
+    api.addMessageCreateListener { event: MessageCreateEvent ->
+        if (event.messageContent.equals("!ping", ignoreCase = true)) {
+            event.channel.sendMessage("Pong!")
+        }
+    }
 }
