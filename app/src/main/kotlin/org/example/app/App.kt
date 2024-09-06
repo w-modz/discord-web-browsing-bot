@@ -1,12 +1,12 @@
 package org.example.app
 
-import org.javacord.api.DiscordApiBuilder
-import org.javacord.api.entity.intent.Intent
-import org.javacord.api.event.message.MessageCreateEvent
+import masecla.reddit4j.client.Reddit4J
+import masecla.reddit4j.client.UserAgentBuilder
+import masecla.reddit4j.objects.Sorting
 
 fun main() {
     val token = ""
-    val api = DiscordApiBuilder()
+    /*val api = DiscordApiBuilder()
         .setToken(token)
         .addIntents(Intent.MESSAGE_CONTENT)
         .login()
@@ -16,5 +16,14 @@ fun main() {
         if (event.messageContent.equals("!ping", ignoreCase = true)) {
             event.channel.sendMessage("Pong!")
         }
-    }
+    }*/
+    redditHelloWorld()
+}
+
+fun redditHelloWorld() {
+    val client = Reddit4J.rateLimited()
+    client.setUserAgent(UserAgentBuilder().author("").appname("").version(""))
+    client.setUsername("").setPassword("").setClientSecret("").setClientId("")
+    val subredditPosts = client.getSubredditPosts("pics", Sorting.NEW).submit()
+    println(subredditPosts.map { it.title })
 }
