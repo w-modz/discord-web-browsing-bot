@@ -11,4 +11,4 @@ plugins {
 }
 
 rootProject.name = "reddit-browser-discord-bot"
-include("app", "list", "utilities")
+include("app")

@@ -7,9 +7,7 @@ plugins {
 }
 
 dependencies {
-    implementation("org.apache.commons:commons-text")
     implementation("org.javacord:javacord:3.8.0")
-    implementation(project(":utilities"))
 
     runtimeOnly("org.apache.logging.log4j:log4j-core:2.17.0")
 }
