@@ -13,3 +13,4 @@ plugins {
 rootProject.name = "reddit-browser-discord-bot"
 include("app")
 include("connectors:reddit")
+include("domain")
