@@ -1,5 +1,6 @@
 package org.example.app
 
+import com.github.wmodz.discordwebbot.connectors.reddit.Foo
 import masecla.reddit4j.client.Reddit4J
 import masecla.reddit4j.client.UserAgentBuilder
 import masecla.reddit4j.objects.Sorting
@@ -18,6 +19,7 @@ fun main() {
         }
     }*/
     redditHelloWorld()
+    Foo()
 }
 
 fun redditHelloWorld() {
