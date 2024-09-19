@@ -1,7 +1,0 @@
-[versions]
-kotlin-gradle-plugin = "2.0.0"
-spring-boot = "3.3.3"
-
-[libraries]
-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
-spring-boot = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-boot" }
