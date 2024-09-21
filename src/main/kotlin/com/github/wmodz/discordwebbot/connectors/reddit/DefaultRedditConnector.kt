@@ -11,7 +11,7 @@ class DefaultRedditConnector(private val redditClient: Reddit4J) : RedditConnect
 
     override fun fetchTopPostsFrom(subredditName: String): Collection<SimpleRedditPost> =
         redditClient
-            .getSubredditPosts(subredditName, Sorting.NEW)
+            .getSubredditPosts(subredditName, Sorting.TOP)
             .submit()
             .toSimplePosts()
 
