@@ -1,7 +1,6 @@
 package com.github.wmodz.discordwebbot.connectors.discord
 
 import com.github.wmodz.discordwebbot.domain.RedditConnector
-// Don't know if this is the right way to do this
 import com.github.wmodz.discordwebbot.domain.SimpleRedditPost
 
 import org.javacord.api.DiscordApi
@@ -15,6 +14,7 @@ import org.javacord.api.interaction.SlashCommandOptionType
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import java.lang.Integer.min
 import kotlin.jvm.optionals.getOrElse
 
 @Configuration
@@ -83,5 +83,10 @@ internal class DiscordConnectorConfig {
             outputString += post.title + " " + post.thumbnailUri + "\n"
         }
         return outputString
+            .substring(0, min(outputString.length, MAX_MSG_LENGTH))
+    }
+
+    private companion object {
+        private const val MAX_MSG_LENGTH = 2000
     }
 }
