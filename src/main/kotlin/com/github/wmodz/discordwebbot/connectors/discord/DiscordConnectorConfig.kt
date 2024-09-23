@@ -1,12 +1,12 @@
 package com.github.wmodz.discordwebbot.connectors.discord
 
+import com.github.wmodz.discordwebbot.connectors.discord.listeners.SlashCommandListener
 import com.github.wmodz.discordwebbot.domain.RedditConnector
 import com.github.wmodz.discordwebbot.domain.SimpleRedditPost
 
 import org.javacord.api.DiscordApi
 import org.javacord.api.DiscordApiBuilder
 import org.javacord.api.entity.intent.Intent
-import org.javacord.api.event.interaction.SlashCommandCreateEvent
 import org.javacord.api.event.message.MessageCreateEvent
 import org.javacord.api.interaction.SlashCommand
 import org.javacord.api.interaction.SlashCommandOption
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.lang.Integer.min
-import kotlin.jvm.optionals.getOrElse
 
 @Configuration
 internal class DiscordConnectorConfig {
@@ -24,7 +23,10 @@ internal class DiscordConnectorConfig {
     private lateinit var token: String
 
     @Bean
-    fun discordApi(redditConnector: RedditConnector): DiscordApi {
+    fun discordApi(
+        redditConnector: RedditConnector,
+        slashCommandListener: SlashCommandListener,
+    ): DiscordApi {
         val api = DiscordApiBuilder()
             .setToken(token)
             .addIntents(Intent.MESSAGE_CONTENT)
@@ -50,28 +52,7 @@ internal class DiscordConnectorConfig {
                 .createGlobal(api)
                 .join()
 
-        // Listener for redditCommand
-        api.addSlashCommandCreateListener { event: SlashCommandCreateEvent ->
-            if (event.slashCommandInteraction.fullCommandName.equals("reddit", ignoreCase = true)) {
-                event.interaction
-                    .createImmediateResponder()
-                    //.setContent(event.slashCommandInteraction.options[0].stringValue.getOrElse {""})
-                    //.setContent(redditConnector.fetchTopPostsFrom(event.slashCommandInteraction.options[1].toString()).toString())
-                    /*.setContent(redditConnector.fetchTopPostsFrom(
-                        event.slashCommandInteraction.options[0].stringValue.getOrElse {""}).elementAt(0).title
-                    )*/
-                    .setContent(
-                        parsePosts(
-                            redditConnector.fetchTopPostsFrom(
-                                event.slashCommandInteraction.options[0].stringValue.getOrElse {""}
-                            )
-                        )
-                    )
-                    .respond()
-            }
-        }
-
-
+        api.addSlashCommandCreateListener(slashCommandListener)
 
         return api
     }
