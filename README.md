@@ -2,7 +2,8 @@
 
 Discord bot that fetches web pages and summaries of supported websites.
 
-<!-- TODO: Add GIF example -->
+<!-- NOTE: To update the video, drag and drop a video file into the text editor directly on GitHub. -->
+https://github.com/user-attachments/assets/3daf08b7-4cf9-4162-b197-7a64aea702cc
 
 ## Setup
 
