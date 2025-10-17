@@ -3,7 +3,7 @@ package com.github.wmodz.discordwebbot.domain
 import java.net.URI
 
 interface RedditConnector {
-    fun fetchTopPostsFrom(subredditName: String): Collection<SimpleRedditPost>
+    fun fetchTopPostsFrom(subredditName: String, sorting: Sorting): Collection<SimpleRedditPost>
 }
 
 data class SimpleRedditPost(

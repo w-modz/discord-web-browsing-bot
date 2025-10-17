@@ -9,9 +9,9 @@ import java.net.URI
 
 class DefaultRedditConnector(private val redditClient: Reddit4J) : RedditConnector {
 
-    override fun fetchTopPostsFrom(subredditName: String): Collection<SimpleRedditPost> =
+    override fun fetchTopPostsFrom(subredditName: String, sorting: Sorting): Collection<SimpleRedditPost> =
         redditClient
-            .getSubredditPosts(subredditName, Sorting.NEW)
+            .getSubredditPosts(subredditName, sorting)
             .submit()
             .toSimplePosts()
 
